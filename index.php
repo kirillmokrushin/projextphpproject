@@ -2,49 +2,60 @@
 
 require 'vendor/autoload.php';
 
-use App\MagicClass;
+use App\Point;
+use App\Vector;
 
-echo "<h1>Demonstration of Magic Methods</h1>";
+echo "<h1>Geometry in OOP</h1>";
 
-// __construct
-echo "<h3>1. __construct:</h3>";
-$obj = new MagicClass();
+// a. Создаем точку T1 с произвольными координатами
+$T1 = new Point(3, 4);
+echo "<h3>a. Точка T1:</h3>";
+echo $T1 . "<br>";
 
-// __set and __get
-echo "<h3>2. __set and __get:</h3>";
-$obj->unknownProperty = "some value";
-echo $obj->unknownProperty;
+// b. Произвольный вектор V1
+$V1 = new Vector(2, 3);
+echo "<h3>b. Произвольный вектор V1:</h3>";
+echo $V1 . "<br>";
 
-// __call
-echo "<h3>3. __call:</h3>";
-$obj->nonExistentMethod("arg1", "arg2");
+// c. Нулевой вектор V2
+$V2 = new Vector(0, 0);
+echo "<h3>c. Нулевой вектор V2:</h3>";
+echo $V2 . "<br>";
 
-// __toString
-echo "<h3>4. __toString:</h3>";
-echo $obj;
+// d. Вектор V3, перпендикулярный V1
+// Вектор (x, y) перпендикулярен (a, b), если a*x + b*y = 0
+// Выберем V3 = (-V1->y, V1->x)
+$V3 = new Vector(-$V1->y, $V1->x);
+echo "<h3>d. Вектор V3, перпендикулярный V1:</h3>";
+echo $V3 . "<br>";
 
-// __invoke
-echo "<h3>5. __invoke:</h3>";
-$obj("test argument");
+// 4. Находим и печатаем длину каждого вектора
+echo "<h3>4. Длины векторов:</h3>";
+echo "|V1| = " . $V1->length() . "<br>";
+echo "|V2| = " . $V2->length() . "<br>";
+echo "|V3| = " . $V3->length() . "<br>";
 
-// __isset
-echo "<h3>6. __isset:</h3>";
-isset($obj->someProperty);
+// 5. Проверяем, что V3 и V1 перпендикулярны
+echo "<h3>5. Проверка перпендикулярности V1 и V3:</h3>";
+if ($V1->isPerpendicularTo($V3)) {
+    echo "V1 и V3 перпендикулярны ✓<br>";
+} else {
+    echo "V1 и V3 не перпендикулярны<br>";
+}
 
-// __unset
-echo "<h3>7. __unset:</h3>";
-unset($obj->someProperty);
+// Проверка V1 и V2 (нулевой вектор считается перпендикулярным любому?)
+echo "Проверка V1 и V2: ";
+echo $V1->isPerpendicularTo($V2) ? "перпендикулярны" : "не перпендикулярны";
+echo "<br>";
 
-// __sleep and __wakeup
-echo "<h3>8. __sleep and __wakeup:</h3>";
-$serialized = serialize($obj);
-unserialize($serialized);
+// 6. Переносим точку T1 на вектор V1
+echo "<h3>6. Перенос точки T1 на вектор V1:</h3>";
+echo "До переноса: T1 = " . $T1 . "<br>";
+$V1->applyToPoint($T1);
+echo "После переноса: T1 = " . $T1 . "<br>";
 
-// __clone
-echo "<h3>9. __clone:</h3>";
-$obj2 = clone $obj;
+echo "<hr>";
+echo "<p><strong>Проверка нулевого вектора V2:</strong><br>";
+echo "V2 является нулевым? " . ($V2->isZero() ? "Да" : "Нет") . "<br>";
 
-// __destruct (вызывается автоматически в конце скрипта)
-echo "<h3>10. __destruct:</h3>";
-echo "Object will be destroyed at script end<br>";
-
+echo "V1 является нулевым? " . ($V1->isZero() ? "Да" : "Нет") . "<br>";
