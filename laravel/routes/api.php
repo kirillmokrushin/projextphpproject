@@ -1,13 +1,14 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\CourseController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\EnrollmentController;
-use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\AuthController;
 
-// API маршруты
-Route::apiResource('courses', CourseController::class);
-Route::apiResource('categories', CategoryController::class);
-Route::apiResource('enrollments', EnrollmentController::class);
-Route::apiResource('reviews', ReviewController::class);
+// Публичные маршруты
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+// Защищённые маршруты
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::get('/me', [AuthController::class, 'me']);
+});
