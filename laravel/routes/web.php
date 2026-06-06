@@ -1,18 +1,30 @@
 <?php
 
+use App\Http\Controllers\CourseViewController;
 use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
 
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+// Маршруты для курсов
+Route::get('/courses', [CourseViewController::class, 'index'])->name('courses.index');
+Route::get('/courses/{id}', [CourseViewController::class, 'show'])->name('courses.show');
+
+// ТЕСТОВЫЙ МАРШРУТ
+Route::get('/test', function () {
+    $courses = App\Models\Course::all();
+    return view('test', ['courses' => $courses]);
+});
+
+require __DIR__.'/auth.php';
