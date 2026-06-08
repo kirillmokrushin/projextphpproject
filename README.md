@@ -63,10 +63,12 @@ cd projextphpproject/laravel
 composer install
 
 4. Настроить окружение
+   
 cp .env.example .env
+
 php artisan key:generate
 
-5. Настроить базу данных
+6. Настроить базу данных
 Открыть файл .env и проверить настройки:
 DB_CONNECTION=mysql
 DB_HOST=MySQL-8.0
@@ -75,15 +77,17 @@ DB_DATABASE=laravel
 DB_USERNAME=root
 DB_PASSWORD=
 
-6. Запустить миграции
+7. Запустить миграции
 php artisan migrate
 
-7. Установить и собрать фронтенд
+8. Установить и собрать фронтенд
+   
 npm install
+
 npm run build
 
-8. Запустить сервер
+10. Запустить сервер
 php artisan serve
 
-9. Открыть в браузере
+11. Открыть в браузере
 http://127.0.0.1:8000
