@@ -77,7 +77,7 @@ php artisan key:generate
 
 DB_CONNECTION=mysql
 
-DB_HOST=MySQL-8.0
+DB_HOST=MySQL-8.0 (вот это главное проверить)
 
 DB_PORT=3306
 
