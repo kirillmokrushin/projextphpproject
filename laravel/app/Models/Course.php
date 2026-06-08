@@ -19,6 +19,10 @@ class Course extends Model
         'mentor_id',
     ];
 
+    protected $casts = [
+        'price' => 'decimal:2',
+    ];
+
     public function category()
     {
         return $this->belongsTo(Category::class);

@@ -64,6 +64,25 @@
                 @else
                     <a href="{{ route('login') }}" class="btn btn-warning mt-3">🔐 Войдите, чтобы записаться</a>
                 @endauth
+
+                <!-- Список отзывов -->
+                <div class="mt-4">
+                    <h5>Отзывы студентов</h5>
+                    @if($course->reviews->count() > 0)
+                        @foreach($course->reviews as $review)
+                            <div class="border rounded p-3 mb-2">
+                                <div class="d-flex justify-content-between">
+                                    <strong>{{ $review->student->name ?? 'Пользователь' }}</strong>
+                                    <span>Оценка: {{ $review->rating }} / 5</span>
+                                </div>
+                                <p class="mb-0 mt-2">{{ $review->comment }}</p>
+                                <small class="text-muted">{{ $review->created_at->format('d.m.Y H:i') }}</small>
+                            </div>
+                        @endforeach
+                    @else
+                        <p class="text-muted">Пока нет отзывов. Будьте первым!</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

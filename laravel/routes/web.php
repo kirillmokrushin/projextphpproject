@@ -27,12 +27,12 @@ Route::get('/courses', [CourseViewController::class, 'index'])->name('courses.in
 // Детальная страница курса
 Route::get('/courses/{id}', [CourseViewController::class, 'show'])->name('courses.show');
 
-// Запись на курс (только для авторизованных)
+// Запись на курс
 Route::post('/courses/{id}/enroll', [EnrollmentController::class, 'store'])
     ->middleware('auth')
     ->name('courses.enroll');
 
-// Отмена записи на курс (только для авторизованных)
+// Отмена записи на курс
 Route::delete('/courses/{id}/cancel', function ($id) {
     $enrollment = App\Models\Enrollment::where('student_id', auth()->id())
         ->where('course_id', $id)
@@ -46,25 +46,17 @@ Route::delete('/courses/{id}/cancel', function ($id) {
     return back()->with('error', 'Запись не найдена');
 })->middleware('auth')->name('courses.cancel');
 
-// Отзывы на курс (только для авторизованных)
+// Отзывы на курс
 Route::post('/courses/{id}/review', [ReviewController::class, 'store'])
     ->middleware('auth')
     ->name('courses.review');
 
-// ========== СТРАНИЦЫ ПОЛЬЗОВАТЕЛЕЙ ==========
-
-// Страница "Мои курсы" для студента
+// ========== СТРАНИЦА МОИ КУРСЫ ==========
 Route::get('/my-courses', function () {
     $courses = App\Models\Course::whereHas('enrollments', function($q) {
         $q->where('student_id', auth()->id());
     })->get();
     return view('my-courses', compact('courses'));
 })->middleware('auth')->name('my-courses');
-
-// Страница ментора "Мои курсы" (управление)
-Route::get('/mentor/courses', function () {
-    $courses = App\Models\Course::where('mentor_id', auth()->id())->get();
-    return view('mentor-courses', compact('courses'));
-})->middleware(['auth'])->name('mentor.courses');
 
 require __DIR__.'/auth.php';
