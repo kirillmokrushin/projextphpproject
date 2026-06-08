@@ -56,10 +56,13 @@
 1. Установить OpenServer
 
 2. Клонировать репозиторий
+   
 git clone https://github.com/kirillmokrushin/projextphpproject.git
+
 cd projextphpproject/laravel
 
 3. Установить зависимости Composer
+   
 composer install
 
 4. Настроить окружение
@@ -68,7 +71,7 @@ cp .env.example .env
 
 php artisan key:generate
 
-6. Настроить базу данных
+5. Настроить базу данных
    
 Открыть файл .env и проверить настройки:
 
@@ -84,17 +87,17 @@ DB_USERNAME=root
 
 DB_PASSWORD=
 
-8. Запустить миграции
+6. Запустить миграции
 php artisan migrate
 
-9. Установить и собрать фронтенд
+7. Установить и собрать фронтенд
    
 npm install
 
 npm run build
 
-10. Запустить сервер
+8. Запустить сервер
 php artisan serve
 
-11. Открыть в браузере
+9. Открыть в браузере
 http://127.0.0.1:8000
