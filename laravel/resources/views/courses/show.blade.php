@@ -6,6 +6,13 @@
 </head>
 <body>
     <div class="container mt-5">
+        @if(session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
+
         <div class="card">
             <div class="card-header bg-primary text-white">
                 <h1>{{ $course->title }}</h1>
@@ -26,6 +33,28 @@
                     
                     @if($enrolled)
                         <div class="alert alert-success mt-3">✅ Вы записаны на этот курс</div>
+                        
+                        <!-- Форма отзыва -->
+                        <div class="mt-4 p-3 border rounded">
+                            <h5>Оставить отзыв</h5>
+                            <form action="{{ route('courses.review', $course->id) }}" method="POST">
+                                @csrf
+                                <div class="mb-2">
+                                    <label>Оценка (1-5):</label>
+                                    <select name="rating" class="form-control w-25" required>
+                                        <option value="5">5 - Отлично</option>
+                                        <option value="4">4 - Хорошо</option>
+                                        <option value="3">3 - Средне</option>
+                                        <option value="2">2 - Плохо</option>
+                                        <option value="1">1 - Ужасно</option>
+                                    </select>
+                                </div>
+                                <div class="mb-2">
+                                    <textarea name="comment" class="form-control" rows="3" placeholder="Ваш отзыв..." required></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary">Отправить отзыв</button>
+                            </form>
+                        </div>
                     @else
                         <form action="{{ route('courses.enroll', $course->id) }}" method="POST" class="mt-3 d-inline">
                             @csrf
