@@ -69,18 +69,25 @@ cp .env.example .env
 php artisan key:generate
 
 6. Настроить базу данных
+   
 Открыть файл .env и проверить настройки:
+
 DB_CONNECTION=mysql
+
 DB_HOST=MySQL-8.0
+
 DB_PORT=3306
+
 DB_DATABASE=laravel
+
 DB_USERNAME=root
+
 DB_PASSWORD=
 
-7. Запустить миграции
+8. Запустить миграции
 php artisan migrate
 
-8. Установить и собрать фронтенд
+9. Установить и собрать фронтенд
    
 npm install
 
