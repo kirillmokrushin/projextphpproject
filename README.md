@@ -51,18 +51,38 @@
 | laravel/docs/MentorMe_API.json | Postman коллекция |
 
 Запуск проекта
+  bash
+1. Установить OpenServer
 
-
+2. Клонировать репозиторий
 git clone https://github.com/kirillmokrushin/projextphpproject.git
-
 cd projextphpproject/laravel
 
-cp .env.example .env
+3. Установить зависимости Composer
+composer install
 
+4. Настроить окружение
+cp .env.example .env
 php artisan key:generate
 
+5. Настроить базу данных
+Открыть файл .env и проверить настройки:
+DB_CONNECTION=mysql
+DB_HOST=MySQL-8.0
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=
+
+6. Запустить миграции
 php artisan migrate
 
+7. Установить и собрать фронтенд
+npm install
+npm run build
+
+8. Запустить сервер
 php artisan serve
 
-После запуска открыть: http://127.0.0.1:8000
+9. Открыть в браузере
+http://127.0.0.1:8000
