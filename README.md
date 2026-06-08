@@ -73,7 +73,7 @@ php artisan key:generate
 
 5. Настроить базу данных
    
-Открыть файл .env и проверить настройки:
+Открыть файл notepad .env и проверить настройки:
 
 DB_CONNECTION=mysql
 
